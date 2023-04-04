@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { FormStyles, Label, AddContactButton } from './ContactForm.styled';
 export class Form extends Component {
   state = {
     name: '',
@@ -11,7 +12,22 @@ export class Form extends Component {
   onSubmit = e => {
     e.preventDefault();
     const { name, number } = this.state;
-    this.props.onChange(name, number);
+    const { onChange, onSubmit } = this.props;
+    const contactMap = onSubmit.map(contact => {
+      if (name === contact.name) {
+        alert(`${contact.name} is already in contacts`);
+        return false;
+      }
+      if (number === contact.number) {
+        alert(`Number "${contact.number}" is already in contacts`);
+        return false;
+      }
+      return true;
+    });
+
+    if (contactMap.every(el => el === true)) {
+      onChange(name, number);
+    }
     this.reset();
   };
   reset = () => {
@@ -20,8 +36,8 @@ export class Form extends Component {
   render() {
     const { name, number } = this.state;
     return (
-      <form onSubmit={this.onSubmit}>
-        <label>
+      <FormStyles onSubmit={this.onSubmit}>
+        <Label>
           Name
           <input
             type="text"
@@ -32,8 +48,8 @@ export class Form extends Component {
             required
             onChange={this.handleChange}
           />
-        </label>
-        <label>
+        </Label>
+        <Label>
           Number
           <input
             type="tel"
@@ -44,9 +60,9 @@ export class Form extends Component {
             required
             onChange={this.handleChange}
           />
-        </label>
-        <button type="submit">Add to contact list</button>
-      </form>
+        </Label>
+        <AddContactButton type="submit">Add to contact list</AddContactButton>
+      </FormStyles>
     );
   }
 }
