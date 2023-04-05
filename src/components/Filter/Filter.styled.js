@@ -6,7 +6,7 @@ export const Label = styled.label`
   justify-content: space-between;
 `;
 
-export const FilterInput = styled.input`
+export const Input = styled.input`
   margin-top: 10px;
   padding: 6px;
 `;

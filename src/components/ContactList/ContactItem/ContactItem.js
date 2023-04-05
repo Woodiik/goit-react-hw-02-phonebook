@@ -1,4 +1,5 @@
 import { DeleteButton, ListItem } from './ContactItem.styled';
+import PropTypes from 'prop-types';
 
 export const ContactItem = ({ contact, onDeleteBtnClick }) => {
   const { id, name, number } = contact;
@@ -10,4 +11,13 @@ export const ContactItem = ({ contact, onDeleteBtnClick }) => {
       </DeleteButton>
     </ListItem>
   );
+};
+
+ContactItem.propTypes = {
+  contact: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    number: PropTypes.string.isRequired,
+  }),
+  onDeleteBtnClick: PropTypes.func.isRequired,
 };

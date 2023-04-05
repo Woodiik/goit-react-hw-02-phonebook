@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { FormStyles, Label, AddContactButton } from './ContactForm.styled';
+import PropTypes from 'prop-types';
+import { Input } from 'components/Filter/Filter.styled';
+
 export class Form extends Component {
   state = {
     name: '',
@@ -34,12 +37,13 @@ export class Form extends Component {
     this.setState({ name: '', number: '' });
   };
   render() {
+    console.log(this.props.onSubmit);
     const { name, number } = this.state;
     return (
       <FormStyles onSubmit={this.onSubmit}>
         <Label>
           Name
-          <input
+          <Input
             type="text"
             name="name"
             value={name}
@@ -51,7 +55,7 @@ export class Form extends Component {
         </Label>
         <Label>
           Number
-          <input
+          <Input
             type="tel"
             name="number"
             value={number}
@@ -66,3 +70,14 @@ export class Form extends Component {
     );
   }
 }
+
+Form.propTypes = {
+  onChange: PropTypes.func.isRequired,
+  onSubmit: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      number: PropTypes.string.isRequired,
+    })
+  ),
+};
