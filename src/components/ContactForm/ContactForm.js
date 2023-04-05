@@ -37,7 +37,6 @@ export class Form extends Component {
     this.setState({ name: '', number: '' });
   };
   render() {
-    console.log(this.props.onSubmit);
     const { name, number } = this.state;
     return (
       <FormStyles onSubmit={this.onSubmit}>
